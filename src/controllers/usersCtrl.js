@@ -1,8 +1,17 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
-const getUsers = (req = request, res = response) => {
-  res.json({ message: "Get users" });
+const getUsers = async (req = request, res = response) => {
+  const { from = 0, limit = 0 } = req.query;
+
+  const query = { usuarioActivo: true };
+
+  const [users, total] = await Promise.all([
+    User.find(query).skip(from).limit(limit),
+    User.countDocuments(query),
+  ]);
+
+  res.json({ users, total });
 };
 
 const postUser = async (req = request, res = response) => {
@@ -36,16 +45,36 @@ const postUser = async (req = request, res = response) => {
   res.json({ message: "Usuario Creado exitosamente", user });
 };
 
-const putUser = (req = request, res = response) => {
+const putUser = async (req = request, res = response) => {
   const { id } = req.params;
+  const { password, ...userToUpdate } = req.body;
 
-  res.json({ message: "Put user" });
+  if (password) {
+    const salt = bcrypt.genSaltSync(10);
+    userToUpdate.password = bcrypt.hashSync(password, salt);
+  }
+
+  const user = await User.findByIdAndUpdate(id, userToUpdate, { new: true });
+
+  res.json({ message: "Usuario Actualizado Correctamente", user });
 };
 
-const deleteUser = (req = request, res = response) => {
+const deleteUser = async (req = request, res = response) => {
   const { id } = req.params;
 
-  res.json({ message: "Delete user" });
+  const user = await User.findById(id);
+
+  if (!user.usuarioActivo) {
+    return res.json({ message: "El usuario esta inactivo" });
+  }
+
+  const userDisabled = await User.findByIdAndUpdate(
+    id,
+    { usuarioActivo: false },
+    { new: true }
+  );
+
+  res.json({ message: "Usuario eliminado Correctamente", userDisabled });
 };
 
 module.exports = {

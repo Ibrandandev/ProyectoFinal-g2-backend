@@ -6,10 +6,12 @@ const { dbConnection } = require("../db/config");
 class Server {
   constructor() {
     this.app = express();
+    this.usersPath = "/api/users";
     this.port = process.env.PORT;
 
-    this.app.middlewares();
-    this.app.routes();
+    this.connectDb();
+    this.middlewares();
+    this.routes();
   }
   async connectDb() {
     await dbConnection();
@@ -18,10 +20,12 @@ class Server {
     this.app.use(cors());
     this.app.use(express.json());
   }
-  routes() {}
+  routes() {
+    this.app.use(this.usersPath, require("../routes/users"));
+  }
   listen() {
     this.app.listen(this.port, () => {
-      console.log(`Servidor online en puerto ${this.port}`);
+      console.log(`Servidor en linea port: ${this.port}`);
     });
   }
 }

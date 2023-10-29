@@ -10,6 +10,14 @@ const isValidEmail = async (email) => {
   }
 };
 
+const isValidId = async (id) => {
+  const userExist = await User.findById(id);
+
+  if (!userExist) {
+    throw new Error("No se ha encontrado usuario Relacionado");
+  }
+};
+
 const isValidPlan = async (plan) => {
   const planExist = await Plan.findOne({ plan });
 
@@ -28,6 +36,7 @@ const isValidRole = async (rol) => {
 
 module.exports = {
   isValidEmail,
+  isValidId,
   isValidPlan,
   isValidRole,
 };

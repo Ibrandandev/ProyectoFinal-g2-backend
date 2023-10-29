@@ -13,6 +13,7 @@ const {
   isValidEmail,
   isValidPlan,
   isValidRole,
+  isValidId,
 } = require("../helpers/db-validators");
 
 const { checkFields } = require("../middlewares/checkFields");
@@ -41,7 +42,15 @@ router.post(
   postUser
 );
 
-router.put("/:id", [], putUser);
+router.put(
+  "/:id",
+  [
+    check("id", "El id es invalido").isMongoId(),
+    check("id").custom(isValidId),
+    checkFields,
+  ],
+  putUser
+);
 
 router.delete("/:id", [], deleteUser);
 

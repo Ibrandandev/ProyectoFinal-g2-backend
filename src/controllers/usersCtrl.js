@@ -12,6 +12,12 @@ const getUsers = async (req = request, res = response) => {
   res.json({ users, total });
 };
 
+const getUser = async (req = request, res = response) => {
+  const { id } = req.params;
+
+  res.json({ message: "GET User", id });
+};
+
 const postUser = async (req = request, res = response) => {
   const {
     nombre,
@@ -60,6 +66,8 @@ const putUser = async (req = request, res = response) => {
 const deleteUser = async (req = request, res = response) => {
   const { id } = req.params;
 
+  const adminUser = req.user;
+
   const user = await User.findById(id);
 
   if (!user.usuarioActivo) {
@@ -72,11 +80,16 @@ const deleteUser = async (req = request, res = response) => {
     { new: true }
   );
 
-  res.json({ message: "Usuario eliminado Correctamente", userDisabled });
+  res.json({
+    message: "Usuario eliminado Correctamente",
+    userDisabled,
+    adminUser,
+  });
 };
 
 module.exports = {
   getUsers,
+  getUser,
   postUser,
   putUser,
   deleteUser,

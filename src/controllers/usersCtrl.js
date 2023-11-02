@@ -63,7 +63,7 @@ const deleteUser = async (req = request, res = response) => {
   const user = await User.findById(id);
 
   if (!user.usuarioActivo) {
-    return res.json({ message: "El usuario esta inactivo" });
+    return res.json({ message: "El usuario esta deshabilitado" });
   }
 
   const userDisabled = await User.findByIdAndUpdate(

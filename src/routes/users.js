@@ -4,6 +4,7 @@ const { check } = require("express-validator");
 
 const {
   getUsers,
+  getUser,
   postUser,
   putUser,
   deleteUser,
@@ -22,6 +23,12 @@ const router = Router();
 
 router.get("/", [], getUsers);
 
+router.get(
+  "/:id",
+  [check("id", "El id es invalido").isMongoId(), check("id").custom(isValidId)],
+  getUser
+);
+
 router.post(
   "/",
   [
@@ -29,11 +36,16 @@ router.post(
     check("apellido", "El Apellido es requerido").notEmpty(),
     check("email", "El Email es requerido").notEmpty(),
     check("email").custom(isValidEmail),
-    check("password", "La contraseña es requerida").notEmpty(),
     check(
       "password",
-      "La contraseña debe tener al menos 8 caracteres"
-    ).isLength({ min: 8 }),
+      "La contraseña debe tener 8 caracteres o más, entre ellos Mayuscula, Minuscula, Numero y Simbolo"
+    ).isStrongPassword({
+      minLength: 8,
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 1,
+    }),
     check("planContratado").custom(isValidPlan),
     check("rol", "El rol es requerido").notEmpty(),
     check("rol").custom(isValidRole),

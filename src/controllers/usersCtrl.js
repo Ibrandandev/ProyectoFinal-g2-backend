@@ -12,6 +12,14 @@ const getUsers = async (req = request, res = response) => {
   res.json({ users, total });
 };
 
+const getUser = async (req = request, res = response) => {
+  const { id } = req.params;
+
+  const user = await User.findById(id);
+
+  res.json({ user });
+};
+
 const postUser = async (req = request, res = response) => {
   const {
     nombre,
@@ -77,6 +85,7 @@ const deleteUser = async (req = request, res = response) => {
 
 module.exports = {
   getUsers,
+  getUser,
   postUser,
   putUser,
   deleteUser,

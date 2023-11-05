@@ -11,7 +11,6 @@ const UserSchema = Schema({
   telefono: { type: String },
   planContratado: { type: String },
   password: { type: String, required: [true, "La contraseña es requerida"] },
-  imagen: { type: String },
   rol: {
     type: String,
     required: true,

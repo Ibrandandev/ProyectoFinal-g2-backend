@@ -21,16 +21,8 @@ const getUser = async (req = request, res = response) => {
 };
 
 const postUser = async (req = request, res = response) => {
-  const {
-    nombre,
-    apellido,
-    email,
-    telefono,
-    planContratado,
-    password,
-    imagen,
-    rol,
-  } = req.body;
+  const { nombre, apellido, email, telefono, planContratado, password, rol } =
+    req.body;
 
   const user = new User({
     nombre,
@@ -39,7 +31,6 @@ const postUser = async (req = request, res = response) => {
     telefono,
     planContratado,
     password,
-    imagen,
     rol,
   });
 

@@ -18,8 +18,8 @@ const isValidId = async (id) => {
   }
 };
 
-const isValidPlan = async (plan) => {
-  const planExist = await Plan.findOne({ plan });
+const isValidPlan = async (nombre) => {
+  const planExist = await Plan.findOne({ nombre });
 
   if (!planExist) {
     throw new Error("El plan no se encuentra registrado");

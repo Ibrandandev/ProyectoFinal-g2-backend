@@ -9,6 +9,7 @@ class Server {
     this.usersPath = "/api/users";
     this.servicesPath = "/api/services";
     this.plansPath = "/api/plans";
+    this.trainersPath = "/api/trainers";
     this.commentsPath = "/api/comments";
     this.port = process.env.PORT;
 
@@ -26,6 +27,7 @@ class Server {
   routes() {
     this.app.use(this.usersPath, require("../routes/users"));
     this.app.use(this.plansPath, require("../routes/plans"));
+    this.app.use(this.trainersPath, require("../routes/trainers"));
     this.app.use(this.commentsPath, require("../routes/comments"));
   }
   listen() {

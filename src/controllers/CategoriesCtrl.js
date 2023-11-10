@@ -18,7 +18,8 @@ const getCategory = async (req = request, res = response) => {
 
 const postCategory = async (req = request, res = response) => {
   const nombre = req.body.nombre.toUpperCase();
-  const category = new Category({ nombre });
+  const { img } = req.body;
+  const category = new Category({ nombre, img });
   await category.save();
 
   res.json({ message: "La categoria fue creada exitosamente", category });

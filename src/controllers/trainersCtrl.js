@@ -9,9 +9,9 @@ const getTrainers = async (req = request, res = response) => {
 };
 
 const postTrainer = async (req = request, res = response) => {
-  const { nombre, apellido, imagen } = req.body;
+  const { nombre, apellido, img } = req.body;
 
-  const trainer = new Trainer({ nombre, apellido, imagen });
+  const trainer = new Trainer({ nombre, apellido, img });
   await trainer.save();
 
   res.json({ message: "Profesor Agregado Exitosamente!", trainer });

@@ -1,6 +1,7 @@
 const User = require("../models/User");
-const Plan = require("../models/Plan");
 const Role = require("../models/Role");
+const Plan = require("../models/Plan");
+const Category = require("../models/Category");
 
 const isValidEmail = async (email) => {
   const emailExist = await User.findOne({ email });
@@ -23,6 +24,22 @@ const planExist = async (plan) => {
 
   if (planExist) {
     throw new Error("El plan ya se encuentra registrado");
+  }
+};
+
+const categoryExist = async (category) => {
+  const categoryExist = await Category.find({ nombre: category });
+
+  if (categoryExist) {
+    throw new Error("La categoria ya se encuentra registrada");
+  }
+};
+
+const isValidIdCategory = async (id) => {
+  const categoryExist = await Category.findById(id);
+
+  if (!categoryExist) {
+    throw new Error("No se ha encontrado Categoria Relacionada");
   }
 };
 
@@ -55,6 +72,8 @@ module.exports = {
   isValidId,
   isValidIdPlan,
   planExist,
+  isValidIdCategory,
+  categoryExist,
   isValidPlan,
   isValidRole,
 };

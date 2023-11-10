@@ -1,8 +1,12 @@
 const { Router } = require("express");
-const { check } = require("express-validator");
 const { checkJWT } = require("../middlewares/check-jwt");
 const { isAdminRole } = require("../middlewares/checkRoles");
+const { check } = require("express-validator");
 const { checkFields } = require("../middlewares/checkFields");
+const {
+  categoryExist,
+  isValidIdCategory,
+} = require("../helpers/db-validators");
 const {
   getCategories,
   getCategory,
@@ -13,7 +17,15 @@ const router = Router();
 
 router.get("/", getCategories);
 
-router.get("/:id", getCategory);
+router.get(
+  "/:id",
+  [
+    check("id", "El id es invalido").isMongoId(),
+    check("id").custom(isValidIdCategory),
+    checkFields,
+  ],
+  getCategory
+);
 
 router.post(
   "/",
@@ -21,6 +33,7 @@ router.post(
     checkJWT,
     isAdminRole,
     check("nombre", "La categoria es requerida").notEmpty(),
+    check("nombre").custom(categoryExist),
     check("img", "La imagen es requerida").notEmpty(),
     checkFields,
   ],

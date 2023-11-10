@@ -2,9 +2,18 @@ const { request, response } = require("express");
 const Category = require("../models/Category");
 
 const getCategories = async (req = request, res = response) => {
-  const categories = await Category.find();
+  const { from = 0, limit = 0 } = req.query;
+  const query = { estado: true };
+  const categories = await Category.find(query).skip(from).limit(limit);
 
   res.json({ categories });
+};
+
+const getCategory = async (req = request, res = response) => {
+  const { id } = req.params;
+  const category = await Category.findById(id);
+
+  res.json({ category });
 };
 
 const postCategory = async (req = request, res = response) => {
@@ -15,4 +24,4 @@ const postCategory = async (req = request, res = response) => {
   res.json({ message: "La categoria fue creada exitosamente", category });
 };
 
-module.exports = { getCategories, postCategory };
+module.exports = { getCategories, getCategory, postCategory };

@@ -5,6 +5,7 @@ const CategorySchema = Schema({
     type: String,
     required: [true, "La categoria es requerida"],
   },
+  img: { type: String, required: [true, "La imagen es requerida"] },
   estado: { type: Boolean, default: true },
 });
 

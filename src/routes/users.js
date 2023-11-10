@@ -11,7 +11,6 @@ const {
   postUser,
   putUser,
   deleteUser,
-  getUser,
 } = require("../controllers/usersCtrl");
 
 const {

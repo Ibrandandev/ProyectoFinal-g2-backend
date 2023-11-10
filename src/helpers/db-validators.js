@@ -18,6 +18,22 @@ const isValidId = async (id) => {
   }
 };
 
+const planExist = async (plan) => {
+  const planExist = await Plan.find({ nombre: plan });
+
+  if (planExist) {
+    throw new Error("El plan ya se encuentra registrado");
+  }
+};
+
+const isValidIdPlan = async (id) => {
+  const planExist = await Plan.findById(id);
+
+  if (!planExist) {
+    throw new Error("No se ha encontrado Plan Relacionado");
+  }
+};
+
 const isValidPlan = async (nombre) => {
   const planExist = await Plan.findOne({ nombre });
 
@@ -37,6 +53,8 @@ const isValidRole = async (rol) => {
 module.exports = {
   isValidEmail,
   isValidId,
+  isValidIdPlan,
+  planExist,
   isValidPlan,
   isValidRole,
 };

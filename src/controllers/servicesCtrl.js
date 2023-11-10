@@ -9,14 +9,26 @@ const getServices = async (req = request, res = response) => {
 
 const getService = async (req = request, res = response) => {
   const { id } = req.params;
-  const service = await Service.findById(id);
+  const service = await Service.findById(id)
+    .populate("categoria", "nombre")
+    .populate("profesor", "nombre apellido");
 
   res.json({ service });
 };
 
 const postService = async (req = request, res = response) => {
-  const {} = req.body;
-  const service = new Service();
+  const { categoria, profesor, descripcion, fecha, horario, img } = req.body;
+  const nombre = req.body.nombre.toUpperCase();
+  const data = {
+    nombre,
+    categoria,
+    profesor,
+    descripcion,
+    fecha,
+    horario,
+    img,
+  };
+  const service = new Service(data);
   await service.save();
 
   res.json({ message: "Servicio creado con exito", service });
@@ -24,20 +36,31 @@ const postService = async (req = request, res = response) => {
 
 const putService = async (req = request, res = response) => {
   const { id } = req.params;
-  const { ...serviceToUpdate } = req.body;
+  // const { ...serviceToUpdate } = req.body;
 
-  const service = await Service.findByIdAndUpdate(id, serviceToUpdate, {
-    new: true,
-  });
+  // const service = await Service.findByIdAndUpdate(id, serviceToUpdate, {
+  //   new: true,
+  // });
 
-  res.json({ message: "Servicio actualizado con exito", service });
+  res.json({ message: "Servicio actualizado con exito" });
 };
 
 const deleteService = async (req = request, res = response) => {
   const { id } = req.params;
-  await Service.findByIdAndDelete(id);
 
-  res.json({ message: "Servicio eliminado con exito" });
+  const service = await Service.findById(id);
+
+  if (!service.estado) {
+    return res.json({ message: "El servicio ya esta deshabilitado" });
+  }
+
+  const serviceDisabled = await Service.findByIdAndUpdate(
+    id,
+    { estado: false },
+    { new: true }
+  );
+
+  res.json({ message: "Servicio Desahabilitado con exito", serviceDisabled });
 };
 
 module.exports = {

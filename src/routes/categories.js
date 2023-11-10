@@ -7,10 +7,10 @@ const {
 
 const router = Router();
 
-router.get("/", getCategories);
+router.get("/", [], getCategories);
 
-router.get("/:id", getCategory);
+router.get("/:id", [], getCategory);
 
-router.post("/", postCategory);
+router.post("/", [], postCategory);
 
 module.exports = router;

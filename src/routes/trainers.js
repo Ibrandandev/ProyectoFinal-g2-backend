@@ -4,8 +4,8 @@ const { getTrainers, postTrainer } = require("../controllers/trainersCtrl");
 
 const router = Router();
 
-router.get("/", getTrainers);
+router.get("/", [], getTrainers);
 
-router.post("/", postTrainer);
+router.post("/", [], postTrainer);
 
 module.exports = router;

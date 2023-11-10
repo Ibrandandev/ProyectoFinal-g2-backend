@@ -59,11 +59,23 @@ router.put(
   [
     check("id", "El id es invalido").isMongoId(),
     check("id").custom(isValidId),
+    check("nombre", "El nombre es requerido").notEmpty(),
+    check("apellido", "El Apellido es requerido").notEmpty(),
+    check("email", "El Email es requerido").notEmpty(),
+    check("planContratado").custom(isValidPlan),
     checkFields,
   ],
   putUser
 );
 
-router.delete("/:id", [], deleteUser);
+router.delete(
+  "/:id",
+  [
+    check("id", "El id es invalido").isMongoId(),
+    check("id").custom(isValidId),
+    checkFields,
+  ],
+  deleteUser
+);
 
 module.exports = router;

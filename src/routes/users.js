@@ -1,5 +1,8 @@
 const { Router } = require("express");
 
+const { checkJWT } = require("../middlewares/check-jwt");
+const { isAdminRole } = require("../middlewares/checkRoles");
+
 const { check } = require("express-validator");
 
 const {
@@ -8,6 +11,7 @@ const {
   postUser,
   putUser,
   deleteUser,
+  getUser,
 } = require("../controllers/usersCtrl");
 
 const {
@@ -21,11 +25,16 @@ const { checkFields } = require("../middlewares/checkFields");
 
 const router = Router();
 
-router.get("/", [], getUsers);
+router.get("/", [checkJWT, isAdminRole], getUsers);
 
 router.get(
   "/:id",
-  [check("id", "El id es invalido").isMongoId(), check("id").custom(isValidId)],
+  [
+    checkJWT,
+    check("id", "El id es invalido").isMongoId(),
+    check("id").custom(isValidId),
+    checkFields,
+  ],
   getUser
 );
 
@@ -57,12 +66,12 @@ router.post(
 router.put(
   "/:id",
   [
+    checkJWT,
     check("id", "El id es invalido").isMongoId(),
     check("id").custom(isValidId),
     check("nombre", "El nombre es requerido").notEmpty(),
     check("apellido", "El Apellido es requerido").notEmpty(),
     check("email", "El Email es requerido").notEmpty(),
-    check("planContratado").custom(isValidPlan),
     checkFields,
   ],
   putUser
@@ -71,6 +80,7 @@ router.put(
 router.delete(
   "/:id",
   [
+    checkJWT,
     check("id", "El id es invalido").isMongoId(),
     check("id").custom(isValidId),
     checkFields,

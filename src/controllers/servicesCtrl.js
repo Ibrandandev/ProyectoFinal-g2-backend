@@ -2,16 +2,15 @@ const { request, response } = require("express");
 const Service = require("../models/Service");
 
 const getServices = async (req = request, res = response) => {
-  const services = await Service.find();
+  const { from = 0, limit = 0 } = req.query;
+  const services = await Service.find().skip(from).limit(limit);
 
   res.json({ services });
 };
 
 const getService = async (req = request, res = response) => {
   const { id } = req.params;
-  const service = await Service.findById(id)
-    .populate("categoria", "nombre")
-    .populate("profesor", "nombre apellido");
+  const service = await Service.findById(id);
 
   res.json({ service });
 };
@@ -54,13 +53,9 @@ const deleteService = async (req = request, res = response) => {
     return res.json({ message: "El servicio ya esta deshabilitado" });
   }
 
-  const serviceDisabled = await Service.findByIdAndUpdate(
-    id,
-    { estado: false },
-    { new: true }
-  );
+  await Service.findByIdAndUpdate(id, { estado: false }, { new: true });
 
-  res.json({ message: "Servicio Desahabilitado con exito", serviceDisabled });
+  res.json({ message: "Servicio Desahabilitado con exito" });
 };
 
 module.exports = {

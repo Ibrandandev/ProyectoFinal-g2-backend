@@ -16,7 +16,7 @@ const ServiceSchema = Schema({
     type: String,
     required: [true, "La descripcion es requerida"],
   },
-  fecha: { type: String, required: [true, "El horario es requerido"] },
+  fecha: { type: String, required: [true, "La fecha es requerida"] },
   horario: { type: String, required: [true, "El horario es requerido"] },
   estado: { type: Boolean, default: true },
   img: { type: String },

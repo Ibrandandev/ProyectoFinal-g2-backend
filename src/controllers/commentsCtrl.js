@@ -3,7 +3,8 @@ const { request, response } = require("express");
 const Comment = require("../models/Comment");
 
 const getComments = async (req = request, res = response) => {
-  const comments = await Comment.find();
+  const { from = 0, limit = 0 } = req.query;
+  const comments = await Comment.find().skip(from).limit(limit);
 
   res.json({ comments });
 };

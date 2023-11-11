@@ -24,7 +24,13 @@ const { checkFields } = require("../middlewares/checkFields");
 
 const router = Router();
 
-router.get("/", [checkJWT, isAdminRole], getUsers);
+router.get(
+  "/",
+  [
+    // checkJWT, isAdminRole
+  ],
+  getUsers
+);
 
 router.get(
   "/:id",

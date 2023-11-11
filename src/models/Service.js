@@ -19,11 +19,11 @@ const ServiceSchema = Schema({
   fecha: { type: String, required: [true, "La fecha es requerida"] },
   horario: { type: String, required: [true, "El horario es requerido"] },
   estado: { type: Boolean, default: true },
-  cupo: {
-    type: Number,
-    required: [true, "El numero de participantes es requerido"],
-  },
-  usuario: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  // cupo: {
+  //   type: Number,
+  //   required: [true, "El numero de participantes es requerido"],
+  // },
+  // usuario: { type: Schema.Types.ObjectId, ref: "User", required: true },
   img: { type: String },
 });
 

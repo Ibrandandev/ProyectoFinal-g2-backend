@@ -11,11 +11,16 @@ const getComments = async (req = request, res = response) => {
 
 const postComment = async (req = request, res = response) => {
   const { comentario } = req.body;
-  // const usuario = req.user._id;
+  const { id } = req.user;
+
+  if (!id) {
+    res.status(401).json({ message: "Debe Iniciar Sesion!" });
+  }
+
   const comment = new Comment({ comentario });
   await comment.save();
 
-  res.json({ message: "Comentario Agregado Exitosamente!", comment });
+  res.status(200).json({ message: "Comentario Agregado Exitosamente!", id });
 };
 
 module.exports = {

@@ -35,13 +35,13 @@ const postService = async (req = request, res = response) => {
 
 const putService = async (req = request, res = response) => {
   const { id } = req.params;
-  // const { ...serviceToUpdate } = req.body;
+  const { ...serviceToUpdate } = req.body;
 
-  // const service = await Service.findByIdAndUpdate(id, serviceToUpdate, {
-  //   new: true,
-  // });
+  const service = await Service.findByIdAndUpdate(id, serviceToUpdate, {
+    new: true,
+  });
 
-  res.json({ message: "Servicio actualizado con exito" });
+  res.json({ message: "Servicio actualizado con exito", service });
 };
 
 const deleteService = async (req = request, res = response) => {

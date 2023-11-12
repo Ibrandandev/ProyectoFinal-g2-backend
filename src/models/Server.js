@@ -9,6 +9,7 @@ class Server {
     this.usersPath = "/api/users";
     this.authPath = "/api/auth";
     this.categoriesPath = "/api/categories";
+    this.bookingsPath = "/api/booking";
     this.servicesPath = "/api/services";
     this.plansPath = "/api/plans";
     this.trainersPath = "/api/trainers";
@@ -31,6 +32,7 @@ class Server {
     this.app.use(this.authPath, require("../routes/auth"));
     this.app.use(this.categoriesPath, require("../routes/categories"));
     this.app.use(this.servicesPath, require("../routes/services"));
+    this.app.use(this.bookingsPath, require("../routes/bookings"));
     this.app.use(this.plansPath, require("../routes/plans"));
     this.app.use(this.trainersPath, require("../routes/trainers"));
     this.app.use(this.commentsPath, require("../routes/comments"));

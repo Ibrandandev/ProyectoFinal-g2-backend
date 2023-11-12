@@ -20,7 +20,7 @@ const postComment = async (req = request, res = response) => {
   const comment = new Comment({ comentario });
   await comment.save();
 
-  res.status(200).json({ message: "Comentario Agregado Exitosamente!", id });
+  res.status(200).json({ message: "Exitoso", id });
 };
 
 module.exports = {

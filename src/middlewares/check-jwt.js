@@ -30,7 +30,9 @@ const checkJWT = async (req = request, res = response, next) => {
     next();
   } catch (err) {
     console.log(err);
-    return res.status(401).json({ message: "Debe iniciar Sesion!" });
+    return res
+      .status(401)
+      .json({ message: "El token no es valido, Inicie sesion nuevamente" });
   }
 };
 

@@ -25,7 +25,7 @@ const login = async (req = request, res = response) => {
 
     const token = await generatingJWT(user._id);
 
-    res.json({ message: "Login OK!", token });
+    res.json({ message: "Login OK!", token, user });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Error en el servidor" });

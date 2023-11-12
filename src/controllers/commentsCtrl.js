@@ -3,8 +3,8 @@ const { request, response } = require("express");
 const Comment = require("../models/Comment");
 
 const getComments = async (req = request, res = response) => {
-  const { from = 0, limit = 0 } = req.query;
-  const comments = await Comment.find().skip(from).limit(limit);
+  const { limit = 0 } = req.query;
+  const comments = await Comment.find().limit(limit).sort({ _id: -1 });
 
   res.json({ comments });
 };

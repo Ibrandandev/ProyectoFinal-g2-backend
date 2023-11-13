@@ -71,6 +71,7 @@ router.put(
     check("nombre", "El nombre es requerido").notEmpty(),
     check("apellido", "El Apellido es requerido").notEmpty(),
     check("email", "El Email es requerido").notEmpty(),
+    check("planContratado").custom(isValidPlan),
     check("rol", "El rol es requerido").notEmpty(),
     check("rol").custom(isValidRole),
     checkFields,

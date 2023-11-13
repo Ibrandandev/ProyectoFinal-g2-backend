@@ -16,16 +16,18 @@ const getService = async (req = request, res = response) => {
 };
 
 const postService = async (req = request, res = response) => {
-  const { categoria, profesor, descripcion, fecha, horario, img } = req.body;
+  const { categoria, profesor, descripcion, dias, horario, img, cupo } =
+    req.body;
   const nombre = req.body.nombre.toUpperCase();
   const data = {
     nombre,
     categoria,
     profesor,
     descripcion,
-    fecha,
+    dias,
     horario,
     img,
+    cupo,
   };
   const service = new Service(data);
   await service.save();

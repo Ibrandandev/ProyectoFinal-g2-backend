@@ -16,7 +16,7 @@ const ServiceSchema = Schema({
     type: String,
     required: [true, "La descripcion es requerida"],
   },
-  dias: { type: String, required: [true, "La fecha es requerida"] },
+  dias: { type: Array, required: [true, "El dia es requerido"] },
   horario: { type: String, required: [true, "El horario es requerido"] },
   estado: { type: Boolean, default: true },
   cupo: {

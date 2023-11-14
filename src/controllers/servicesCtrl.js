@@ -1,9 +1,16 @@
-const { request, response } = require("express");
+const { request, response, query } = require("express");
 const Service = require("../models/Service");
 
 const getServices = async (req = request, res = response) => {
-  const { from = 0, limit = 0 } = req.query;
-  const services = await Service.find()
+  const { from = 0, limit = 0, category = "" } = req.query;
+
+  let query = {};
+
+  if (category) {
+    query = { categoria: category };
+  }
+
+  const services = await Service.find(query)
     .populate("categoria", "nombre")
     .populate("profesor", "nombre apellido")
     .skip(from)

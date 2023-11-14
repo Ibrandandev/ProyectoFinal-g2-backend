@@ -14,7 +14,9 @@ const getServices = async (req = request, res = response) => {
 
 const getService = async (req = request, res = response) => {
   const { id } = req.params;
-  const service = await Service.findById(id);
+  const service = await Service.findById(id)
+    .populate("categoria", "nombre")
+    .populate("profesor", "nombre apellido");
 
   res.json({ service });
 };

@@ -24,12 +24,11 @@ const { checkFields } = require("../middlewares/checkFields");
 
 const router = Router();
 
-router.get("/", [checkJWT, isAdminRole, checkFields], getUsers);
+router.get("/", getUsers);
 
 router.get(
   "/:id",
   [
-    checkJWT,
     check("id", "El id es invalido").isMongoId(),
     check("id").custom(isValidId),
     checkFields,
@@ -65,7 +64,6 @@ router.post(
 router.put(
   "/:id",
   [
-    checkJWT,
     check("id", "El id es invalido").isMongoId(),
     check("id").custom(isValidId),
     check("nombre", "El nombre es requerido").notEmpty(),
@@ -82,7 +80,6 @@ router.put(
 router.delete(
   "/:id",
   [
-    checkJWT,
     check("id", "El id es invalido").isMongoId(),
     check("id").custom(isValidId),
     checkFields,

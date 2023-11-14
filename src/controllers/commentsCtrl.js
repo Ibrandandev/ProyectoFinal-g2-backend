@@ -4,7 +4,10 @@ const Comment = require("../models/Comment");
 
 const getComments = async (req = request, res = response) => {
   const { limit = 0 } = req.query;
-  const comments = await Comment.find().limit(limit).sort({ _id: -1 });
+  const comments = await Comment.find()
+    .populate("usuario", "nombre apellido")
+    .limit(limit)
+    .sort({ _id: -1 });
 
   res.json({ comments });
 };

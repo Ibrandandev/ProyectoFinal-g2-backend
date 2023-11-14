@@ -3,7 +3,11 @@ const Service = require("../models/Service");
 
 const getServices = async (req = request, res = response) => {
   const { from = 0, limit = 0 } = req.query;
-  const services = await Service.find().skip(from).limit(limit);
+  const services = await Service.find()
+    .populate("categoria", "nombre")
+    .populate("profesor", "nombre apellido")
+    .skip(from)
+    .limit(limit);
 
   res.json({ services });
 };

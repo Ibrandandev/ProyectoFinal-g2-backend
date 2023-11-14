@@ -32,7 +32,7 @@ const checkJWT = async (req = request, res = response, next) => {
     console.log(err);
     return res
       .status(401)
-      .json({ message: "El token no es valido, Inicie sesion nuevamente" });
+      .json({ message: "El token no es valido, Inicie sesion" });
   }
 };
 

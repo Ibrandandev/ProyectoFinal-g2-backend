@@ -23,7 +23,7 @@ const ServiceSchema = Schema({
     type: Number,
     required: [true, "El numero de participantes es requerido"],
   },
-  img: { type: String },
+  img: { type: String, required: [true, "La imagen es requerida"] },
 });
 
 module.exports = model("Service", ServiceSchema);

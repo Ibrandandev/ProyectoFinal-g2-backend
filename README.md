@@ -10,7 +10,12 @@ Gimnasio, servicios y productos que ofrece
 - Abrir terminal de comandos
   - git clone https://github.com/Ibrandandev/ProyectoFinal-g2-backend.git
   - cd ProyectoFinal-g2-backend
- 
+  - npm install
+  - crear archivo .env con las variables propuestas en .env.template
+  - npm run dev
+
+## Endpoints
+- [Postman](https://documenter.getpostman.com/view/29599273/2s9YXmZ19h)
 
 ## 👨‍💻 Tecnologías Usadas 👩‍💻
 

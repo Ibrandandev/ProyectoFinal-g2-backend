@@ -74,7 +74,7 @@ const deleteUser = async (req = request, res = response) => {
   );
 
   res.json({
-    message: "Usuario eliminado Correctamente",
+    message: "Usuario deshabilitado correctamente",
     userDisabled,
     adminUser,
   });

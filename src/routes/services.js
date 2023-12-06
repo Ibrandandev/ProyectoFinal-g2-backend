@@ -1,4 +1,8 @@
 const { Router } = require("express");
+const { check } = require("express-validator");
+const { checkJWT } = require("../middlewares/check-jwt");
+const { isAdminRole } = require("../middlewares/checkRoles");
+const { checkFields } = require("../middlewares/checkFields");
 const {
   getServices,
   getService,
@@ -6,8 +10,6 @@ const {
   putService,
   deleteService,
 } = require("../controllers/servicesCtrl");
-const { check } = require("express-validator");
-const { checkFields } = require("../middlewares/checkFields");
 
 const router = Router();
 
@@ -16,6 +18,8 @@ router.get("/:id", [], getService);
 router.post(
   "/",
   [
+    checkJWT,
+    isAdminRole,
     check("nombre", "El nombre es requerido").notEmpty(),
     check("categoria", "La categoria es requerida").notEmpty(),
     check("profesor", "El profesor es requerido").notEmpty(),
@@ -31,6 +35,8 @@ router.post(
 router.put(
   "/:id",
   [
+    checkJWT,
+    isAdminRole,
     check("nombre", "El nombre es requerido").notEmpty(),
     check("categoria", "La categoria es requerida").notEmpty(),
     check("profesor", "El profesor es requerido").notEmpty(),
@@ -43,6 +49,6 @@ router.put(
   ],
   putService
 );
-router.delete("/:id", [], deleteService);
+router.delete("/:id", [checkJWT, isAdminRole], deleteService);
 
 module.exports = router;

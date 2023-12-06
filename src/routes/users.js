@@ -1,9 +1,7 @@
 const { Router } = require("express");
-
+const { check } = require("express-validator");
 const { checkJWT } = require("../middlewares/check-jwt");
 const { isAdminRole } = require("../middlewares/checkRoles");
-
-const { check } = require("express-validator");
 
 const {
   getUsers,
@@ -24,7 +22,7 @@ const { checkFields } = require("../middlewares/checkFields");
 
 const router = Router();
 
-router.get("/", getUsers);
+router.get("/", [checkJWT, isAdminRole], getUsers);
 
 router.get(
   "/:id",
@@ -64,6 +62,8 @@ router.post(
 router.put(
   "/:id",
   [
+    checkJWT,
+    isAdminRole,
     check("id", "El id es invalido").isMongoId(),
     check("id").custom(isValidId),
     check("nombre", "El nombre es requerido").notEmpty(),
@@ -80,6 +80,8 @@ router.put(
 router.delete(
   "/:id",
   [
+    checkJWT,
+    isAdminRole,
     check("id", "El id es invalido").isMongoId(),
     check("id").custom(isValidId),
     checkFields,

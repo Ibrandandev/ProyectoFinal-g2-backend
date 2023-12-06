@@ -72,7 +72,7 @@ const deleteBooking = async (req = request, res = response) => {
     res.status(400).json({ message: "Error al Eliminar, intente nuevamente" });
   }
 
-  res.json({ message: "Eliminacion Exitosa", booking });
+  res.json({ message: "Reserva Cancelada", booking });
 };
 
 module.exports = { getBookings, getBookingsByUser, postBooking, deleteBooking };

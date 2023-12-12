@@ -45,7 +45,7 @@ const postService = async (req = request, res = response) => {
   const service = new Service(data);
   await service.save();
 
-  res.json({ message: "Servicio creado con exito", service });
+  res.json({ message: "Servicio creado con exito" });
 };
 
 const putService = async (req = request, res = response) => {
@@ -56,7 +56,7 @@ const putService = async (req = request, res = response) => {
     new: true,
   });
 
-  res.json({ message: "Servicio actualizado con exito", service });
+  res.json({ message: "Servicio actualizado con exito" });
 };
 
 const deleteService = async (req = request, res = response) => {

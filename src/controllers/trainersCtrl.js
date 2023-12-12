@@ -14,7 +14,7 @@ const postTrainer = async (req = request, res = response) => {
   const trainer = new Trainer({ nombre, apellido, img });
   await trainer.save();
 
-  res.json({ message: "Profesor Agregado Exitosamente!", trainer });
+  res.json({ message: "Profesor Agregado Exitosamente!" });
 };
 
 module.exports = {

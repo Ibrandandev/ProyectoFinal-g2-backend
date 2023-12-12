@@ -39,7 +39,7 @@ const postUser = async (req = request, res = response) => {
 
   await user.save();
 
-  res.json({ message: "Usuario Creado exitosamente", user });
+  res.json({ message: "Usuario Creado exitosamente" });
 };
 
 const putUser = async (req = request, res = response) => {
@@ -53,10 +53,10 @@ const putUser = async (req = request, res = response) => {
 
   const user = await User.findByIdAndUpdate(id, userToUpdate, { new: true });
 
-  res.json({ message: "Usuario Actualizado Correctamente", user });
+  res.json({ message: "Usuario Actualizado Correctamente" });
 };
 
-const deleteUser = async (req = request, res = response) => {
+deleteUser = async (req = request, res = response) => {
   const { id } = req.params;
 
   const adminUser = req.user;
@@ -75,8 +75,6 @@ const deleteUser = async (req = request, res = response) => {
 
   res.json({
     message: "Usuario deshabilitado correctamente",
-    userDisabled,
-    adminUser,
   });
 };
 

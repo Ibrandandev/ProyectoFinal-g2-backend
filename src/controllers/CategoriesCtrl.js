@@ -22,7 +22,7 @@ const postCategory = async (req = request, res = response) => {
   const category = new Category({ nombre, img });
   await category.save();
 
-  res.json({ message: "La categoria fue creada exitosamente", category });
+  res.json({ message: "La categoria fue creada exitosamente" });
 };
 
 module.exports = { getCategories, getCategory, postCategory };

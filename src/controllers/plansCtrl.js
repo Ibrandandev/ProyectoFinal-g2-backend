@@ -28,7 +28,7 @@ const postPlan = async (req = request, res = response) => {
   });
   await plan.save();
 
-  res.json({ message: "El plan fue agregado exitosamente", plan });
+  res.json({ message: "El plan fue agregado exitosamente" });
 };
 
 const putPlan = async (req = request, res = response) => {
@@ -47,17 +47,15 @@ const putPlan = async (req = request, res = response) => {
 
   res.json({
     message: "El plan fue actualizado exitosamente",
-    plan,
   });
 };
 
 const deletePlan = async (req = request, res = response) => {
   const { id } = req.params;
 
-  const plan = await Plan.findById(id);
-  // await Plan.findByIdAndDelete(id);
+  await Plan.findByIdAndDelete(id);
 
-  res.json({ message: "Plan Eliminado Exitosamente", plan });
+  res.json({ message: "Plan Eliminado Exitosamente" });
 };
 
 module.exports = { getPlans, getPlan, postPlan, putPlan, deletePlan };

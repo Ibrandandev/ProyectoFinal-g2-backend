@@ -60,7 +60,7 @@ const postBooking = async (req = request, res = response) => {
 
   await booking.save();
 
-  res.json({ message: "Reserva Exitosa", booking });
+  res.json({ message: "Reserva Exitosa" });
 };
 
 const deleteBooking = async (req = request, res = response) => {
@@ -72,7 +72,7 @@ const deleteBooking = async (req = request, res = response) => {
     res.status(400).json({ message: "Error al Eliminar, intente nuevamente" });
   }
 
-  res.json({ message: "Reserva Cancelada", booking });
+  res.json({ message: "Reserva Cancelada" });
 };
 
 module.exports = { getBookings, getBookingsByUser, postBooking, deleteBooking };

@@ -4,10 +4,10 @@ const Service = require("../models/Service");
 const getServices = async (req = request, res = response) => {
   const { from = 0, limit = 0, category = "" } = req.query;
 
-  let query = {};
+  let query = { estado: true };
 
   if (category) {
-    query = { categoria: category };
+    query = { categoria: category, estado: true };
   }
 
   const services = await Service.find(query)

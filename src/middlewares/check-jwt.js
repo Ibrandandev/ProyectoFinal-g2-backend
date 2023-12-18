@@ -3,8 +3,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const checkJWT = async (req = request, res = response, next) => {
-  const token = req;
-  console.log(token);
+  const token = req.header("token");
 
   if (!token) {
     return res.status(401).json({ message: "Debe Iniciar Sesion" });
